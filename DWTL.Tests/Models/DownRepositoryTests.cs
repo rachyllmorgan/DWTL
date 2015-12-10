@@ -298,7 +298,7 @@ namespace DWTL.Tests.Models
             var list_of_users = new List<DownUser>
             {
                 new DownUser { Handle = "unicornLover", Competition = list_of_comps },
-            new DownUser { Handle = "burgerBob", Competition = list_of_comps }
+                new DownUser { Handle = "burgerBob", Competition = list_of_comps }
             };
 
             mock_user_set.Object.AddRange(list_of_users);
