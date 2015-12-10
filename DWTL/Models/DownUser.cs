@@ -6,10 +6,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DWTL.Models
 {
-    public class DownUser
+    public class DownUser : IComparable
     {
         [Key]
-        public int UserId { get; set; }
+        public int DownUserId { get; set; }
         
         [Required]
         [MaxLength(15)]
@@ -24,5 +24,12 @@ namespace DWTL.Models
 
         public List<Competition> Competition { get; set; }
 
+        public int CompareTo(object obj)
+        {
+            DownUser a_user = obj as DownUser;
+
+            int answer = this.Handle.CompareTo(a_user.Handle);
+            return answer;
+        }
     }
 }

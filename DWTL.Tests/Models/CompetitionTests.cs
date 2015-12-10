@@ -29,19 +29,6 @@ namespace DWTL.Tests.Models
             Assert.AreEqual(null, a_competition.Author);
         }
 
-        //[TestMethod]
-        //public void GroupEnsureGroupHasTeams()
-        //{
-        //    List<Team> list_of_teams = new List<Team>
-        //    {
-        //        new Team { Name = "The best!" },
-        //        new Team { Name = "We try!" }
-        //    };
-        //    Competition a_group = new Competition { Name = "Pizza Lovers!", Teams = list_of_teams };
-        //    List<Team> actual_teams = a_group.Teams;
-        //    CollectionAssert.AreEqual(list_of_teams, actual_teams);
-        //}
-
         [TestMethod]
         public void CompetitionEnsureCompetitionHasPosts()
         {
