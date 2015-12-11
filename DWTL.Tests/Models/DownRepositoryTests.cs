@@ -214,7 +214,7 @@ namespace DWTL.Tests.Models
         }
 
         [TestMethod]
-        public void DownRepositoryEnsureICanSearchByHandle()
+        public void DownRepositoryEnsureICanSearchUserByHandle()
         {
             var expected = new List<DownUser>
             {
@@ -242,7 +242,7 @@ namespace DWTL.Tests.Models
         }
 
         [TestMethod]
-        public void DownRepositoryEnsureICanSearchByName()
+        public void DownRepositoryEnsureICanSearchUserByName()
         {
             var expected = new List<DownUser>
             {
@@ -287,18 +287,148 @@ namespace DWTL.Tests.Models
         }
 
         [TestMethod]
-        public void DownRepositoryEnsureICanGetCompetitionsByUserHandle()
+        public void DownRepositoryEnsureICanGetCompetitionByName()
+        {
+            var expected = new List<Competition>
+            {
+                new Competition { Name = "Pizza Lovers!" },
+                new Competition { Name = "Down with pounds" }
+            };
+            mock_comp_set.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+
+            string comp_name = "Pizza Lovers!";
+            Competition actual_comp = repository.GetCompetitionByName(comp_name);
+
+            Assert.AreEqual(comp_name, actual_comp.Name);
+        }
+
+        [TestMethod]
+        public void DownRepositoryGetCompetitionByNameThatDoesNotExist()
+        {
+            var expected = new List<Competition>
+            {
+                new Competition { Name = "Pizza Lovers!" },
+                new Competition { Name = "Down with pounds" }
+            };
+            mock_comp_set.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+
+            string comp_name = "The Blah's";
+            Competition actual_comp = repository.GetCompetitionByName(comp_name);
+
+            Assert.IsNull(actual_comp);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void DownRepositoryGetCompetitionByNameFailsWithMultipleCompetitions()
+        {
+            var expected = new List<Competition>
+            {
+                new Competition { Name = "Pizza Lovers!" },
+                new Competition { Name = "Pizza Lovers!" }
+            };
+            mock_comp_set.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+
+            string comp_name = "Pizza Lovers!";
+            Competition actual_comp = repository.GetCompetitionByName(comp_name);
+        }
+
+        [TestMethod]
+        public void DownRepositoryEnsureCompetitonNameIsAvailable()
+        {
+            var expected = new List<Competition>
+            {
+                new Competition { Name = "Pizza Lovers!" },
+                new Competition { Name = "Down With the Pounds" }
+            };
+            mock_comp_set.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+
+            string comp_name = "The Blah's";
+            bool is_available = repository.IsCompetitionNameAvailable(comp_name);
+            Assert.IsTrue(is_available);
+        }
+
+        [TestMethod]
+        public void DownRepositoryEnsureCompetitionNameIsNotAvailable()
+        {
+            var expected = new List<Competition>
+            {
+                new Competition { Name = "Pizza Lovers!" },
+                new Competition { Name = "Down With the Pounds" }
+            };
+            mock_comp_set.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+
+            string comp_name = "Down With the Pounds";
+            bool is_available = repository.IsCompetitionNameAvailable(comp_name);
+            Assert.IsFalse(is_available);
+        }
+
+        [TestMethod]
+        public void DownRepositoryEnsureCompetitionNameisNotAvailableWithMultipleCompetitions()
+        {
+            var expected = new List<Competition>
+            {
+                new Competition { Name = "Pizza Lovers!" },
+                new Competition { Name = "Pizza Lovers!" }
+            };
+            mock_comp_set.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+
+            string comp_name = "Pizza Lovers!";
+            bool is_available = repository.IsCompetitionNameAvailable(comp_name);
+            Assert.IsFalse(is_available);
+        }
+
+        [TestMethod]
+        public void DownRepositoryEnsureICanSearchCompetitionByName()
+        {
+            var expected = new List<Competition>
+            {
+                new Competition { Name = "Pizza Lovers!" },
+                new Competition { Name = "Heavy Weights" },
+                new Competition { Name = "Put down the pizza" },
+                new Competition { Name = "Dropping pounds" }
+            };
+            mock_comp_set.Object.AddRange(expected);
+            ConnectMocksToDataStore(expected);
+
+            string name_search = "pizz";
+
+            var expected_comps = new List<Competition>
+            {
+                 new Competition { Name = "Pizza Lovers!" },
+                 new Competition { Name = "Put down the pizza" }
+            };
+
+            List<Competition> actual = repository.SearchCompetitionByName(name_search);
+
+            Assert.AreEqual(expected_comps[0].Name, actual[0].Name);
+            Assert.AreEqual(expected_comps[1].Name, actual[1].Name);
+        }
+
+        [TestMethod]
+        public void DownRepositoryEnsureICanGetAllCompetitionsByUserHandle()
         {
             var list_of_comps = new List<Competition>
             {
                 new Competition { Name = "Horses Rock" },
                 new Competition { Name = "Belcher Gang" }
             };
+            var list_of_other_comps = new List<Competition>
+            {
+                new Competition { Name = "Blah" },
+                new Competition { Name = "Blah blah" }
+            };
 
             var list_of_users = new List<DownUser>
             {
                 new DownUser { Handle = "unicornLover", Competition = list_of_comps },
-                new DownUser { Handle = "burgerBob", Competition = list_of_comps }
+                new DownUser { Handle = "burgerBob", Competition = list_of_other_comps }
             };
 
             mock_user_set.Object.AddRange(list_of_users);
@@ -307,8 +437,46 @@ namespace DWTL.Tests.Models
             string handle = "unicornLover";
             List<Competition> actual_user_comps = repository.GetUserCompetitions(handle);
 
-            //Assert.AreEqual("Horses Rock", actual_user_comps.First().Name);
+            Assert.AreEqual("Horses Rock", actual_user_comps.First().Name);
             CollectionAssert.AreEqual(list_of_comps, actual_user_comps);
+        }
+
+        [TestMethod]
+        public void DownRepositoryEnsureICanGetAllPostByCompetitionName()
+        {
+            DateTime expected_time = DateTime.Now;
+
+            List<Post> list_of_posts = new List<Post>
+            {
+                new Post { Content = "Yo!", Date = expected_time},
+                new Post { Content = "Nice try!", Date = expected_time }
+            };
+            mock_post_set.Object.AddRange(list_of_posts);
+            ConnectMocksToDataStore(list_of_posts);
+
+            Competition a_competition = new Competition { Name = "Pizza Lovers!", Posts = list_of_posts };
+            List<Post> actual_posts = a_competition.Posts;
+
+            CollectionAssert.AreEqual(list_of_posts, actual_posts); ;
+        }
+
+        [TestMethod]
+        public void DownRepositoryEnsureICanCreateAPost()
+        {
+            DateTime base_time = DateTime.Now;
+            List<Post> expected_posts = new List<Post>();
+
+            ConnectMocksToDataStore(expected_posts);
+
+            DownUser down_user1 = new DownUser { Handle = "unicornLover" };
+            Competition comp_name = new Competition { Name = "Belchers" };
+            string content = "Hello DWTL World!";
+
+            mock_post_set.Setup(p => p.Add(It.IsAny<Post>())).Callback((Post s) => expected_posts.Add(s));
+            
+            bool successful = repository.CreatePost(down_user1, comp_name, content);
+
+            Assert.IsTrue(successful);
         }
     }
 }

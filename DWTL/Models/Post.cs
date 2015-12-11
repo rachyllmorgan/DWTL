@@ -16,7 +16,7 @@ namespace DWTL.Models
 
         public object Author { get; set; }
         public DateTime Date { get; set; }
-        public object Competition { get; set; }
+        public Competition Competition { get; set; }
         public string Picture { get; set; }
     }
 }

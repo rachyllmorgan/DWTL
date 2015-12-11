@@ -6,7 +6,7 @@ using System.Web;
 
 namespace DWTL.Models
 {
-    public class Competition
+    public class Competition : IComparable
     {
         [Key]
         public int CompetitionId { get; set; }
@@ -17,5 +17,13 @@ namespace DWTL.Models
         public int Pot { get; set; } //need to calculate this from total bets
 
         public List<Post> Posts { get; set; }
+
+        public int CompareTo(object obj)
+        {
+            Competition a_comp = obj as Competition;
+
+            int answer = this.Name.CompareTo(a_comp.Name);
+            return answer;
+        }
     }
 }
