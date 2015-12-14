@@ -25,9 +25,14 @@ namespace DWTL.Controllers
         {
             ViewBag.Message = "All Current Competitions";
 
-            List<Competition> all_comps = Repo.GetAllCompetitions();
+            //List<Competition> all_comps = Repo.GetAllCompetitions();
             // How you send a list of anything to a view
-            return View(all_comps);
+            return View();
+        }
+
+        public ActionResult CreateGroup()
+        {
+            return View();
         }
 
         // GET: DWTL/Details/5

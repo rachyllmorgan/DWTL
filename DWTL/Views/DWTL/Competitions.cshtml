@@ -5,7 +5,26 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-@foreach (var item in Model)
+<div class="row">
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("Create Group", "CreateGroup") @*new { id = item.MovieId }*@
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <img src="http://placecorgi.com/260/180" />
+        @Html.ActionLink("Edit", "Edit") | @*new { id = item.MovieId }*@
+        @Html.ActionLink("Details", "Details") | @*new { id = item.MovieId }*@
+        @Html.ActionLink("Delete", "Delete") @*new { id = item.MovieId }*@
+    </div>
+</div>
+
+@*@foreach (var item in Model)
 {
     <div class="row">
         <div class="col-md-3">
@@ -13,7 +32,7 @@
             @item.Name
         </div>
     </div>
-}
+}*@
 
 
 
