@@ -1,0 +1,19 @@
+﻿@model IEnumerable<DWTL.Models.Competition>
+@{
+    ViewBag.Title = "Competitions";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-3">
+            <img src="http://placecorgi.com/260/180" />
+            @item.Name
+        </div>
+    </div>
+}
+
+
+

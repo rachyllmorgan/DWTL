@@ -3,15 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DWTL.Models;
 
 namespace DWTL.Controllers
 {
     public class DWTLController : Controller
     {
+        public DownRepository Repo { get; set; }
+
+        public DWTLController() : base()
+        {
+            Repo = new DownRepository();
+        }
         // GET: DWTL
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Competitions()
+        {
+            ViewBag.Message = "All Current Competitions";
+
+            List<Competition> all_comps = Repo.GetAllCompetitions();
+            // How you send a list of anything to a view
+            return View(all_comps);
         }
 
         // GET: DWTL/Details/5
