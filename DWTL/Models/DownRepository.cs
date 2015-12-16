@@ -110,6 +110,26 @@ namespace DWTL.Models
             return found_user.Competition;
         }
 
+        public bool CreateCompetition(DownUser down_user1, String comp_name)
+        {
+            Competition a_comp = new Competition { Author = down_user1, Name = comp_name };
+            bool is_added = true;
+            try
+            {
+                Competition added_post = _context.Competitions.Add(a_comp);
+                _context.SaveChanges();
+                //if (added_post == null)
+                //{
+                //    is_added = false;
+                //}
+            }
+            catch (Exception)
+            {
+                is_added = false;
+            }
+            return is_added;
+        }
+
         public List<Post> GetPostsByCompetition(string comp_name)
         {
             var query = from post in _context.Posts select post;

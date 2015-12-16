@@ -442,6 +442,23 @@ namespace DWTL.Tests.Models
         }
 
         [TestMethod]
+        public void DownRepositoryEnsureICanCreateACompetition()
+        {
+            List<Competition> expected_comps = new List<Competition>();
+
+            ConnectMocksToDataStore(expected_comps);
+
+            DownUser down_user1 = new DownUser { Handle = "unicornLover" };
+            String comp_name = "The Belchers";
+
+            mock_comp_set.Setup(p => p.Add(It.IsAny<Competition>())).Callback((Competition s) => expected_comps.Add(s));
+
+            bool successful = repository.CreateCompetition(down_user1, comp_name);
+
+            Assert.IsTrue(successful);
+        }
+
+        [TestMethod]
         public void DownRepositoryEnsureICanGetAllPostByCompetitionName()
         {
             DateTime expected_time = DateTime.Now;
