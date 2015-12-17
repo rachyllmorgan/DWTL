@@ -21,8 +21,9 @@ namespace DWTL.Models
         public string LastName { get; set; }
         public int Weight { get; set; }
         public string Picture { get; set; }
-
-        public List<Competition> Competition { get; set; }
+        // List to hold invitations, does it need its own model?? 
+        //public List<Invitations> Invites { get; set; }
+        public virtual List<Competition> Competition { get; set; }
 
         public int CompareTo(object obj)
         {

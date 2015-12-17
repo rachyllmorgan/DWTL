@@ -174,13 +174,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201512141628519_InitialCreate.cs" />
-    <Compile Include="Migrations\201512141628519_InitialCreate.Designer.cs">
-      <DependentUpon>201512141628519_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201512171922567_InitialCreate.cs" />
+    <Compile Include="Migrations\201512171922567_InitialCreate.Designer.cs">
+      <DependentUpon>201512171922567_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DownContext.cs" />
+    <Compile Include="Models\DownInit.cs" />
     <Compile Include="Models\DownRepository.cs" />
     <Compile Include="Models\DownUser.cs" />
     <Compile Include="Models\Competition.cs" />
@@ -197,6 +198,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\home_runner.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -264,8 +266,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512141628519_InitialCreate.resx">
-      <DependentUpon>201512141628519_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201512171922567_InitialCreate.resx">
+      <DependentUpon>201512171922567_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

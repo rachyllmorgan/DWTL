@@ -112,7 +112,7 @@ namespace DWTL.Models
 
         public bool CreateCompetition(DownUser down_user1, String comp_name)
         {
-            Competition a_comp = new Competition { Author = down_user1, Name = comp_name };
+            Competition a_comp = new Competition { DownUserId = down_user1.DownUserId, Name = comp_name };
             bool is_added = true;
             try
             {
@@ -130,17 +130,17 @@ namespace DWTL.Models
             return is_added;
         }
 
-        public List<Post> GetPostsByCompetition(string comp_name)
-        {
-            var query = from post in _context.Posts select post;
-            List<Post> found_post = query.Where(post => post.Competition.ToString() == comp_name).ToList();
-            found_post.Sort();
-            return found_post;
-        }
+        //public List<Post> GetPostsByCompetition(string comp_name)
+        //{
+        //    var query = from post in _context.Posts select post;
+        //    List<Post> found_post = query.Where(post => post.CompetitionId.ToString() == comp_name).ToList();
+        //    found_post.Sort();
+        //    return found_post;
+        //}
 
         public bool CreatePost(DownUser down_user1, Competition comp_name, string content)
         {
-            Post a_post = new Post { Content = content, Date = DateTime.Now, Author = down_user1, Competition = comp_name };
+            Post a_post = new Post { Content = content, Date = DateTime.Now, DownUserId = down_user1.DownUserId, CompetitionId = comp_name.CompetitionId };
             bool is_added = true;
             try
             {

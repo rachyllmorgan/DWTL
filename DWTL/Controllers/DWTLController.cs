@@ -9,12 +9,8 @@ namespace DWTL.Controllers
 {
     public class DWTLController : Controller
     {
-        public DownRepository Repo { get; set; }
+        private DownContext repo = new DownContext();
 
-        public DWTLController() : base()
-        {
-            Repo = new DownRepository();
-        }
         // GET: DWTL
         public ActionResult Index()
         {
@@ -27,7 +23,7 @@ namespace DWTL.Controllers
 
             //List<Competition> all_comps = Repo.GetAllCompetitions();
             // How you send a list of anything to a view
-            return View();
+            return View(repo.Competitions.ToList());
         }
 
         public ActionResult CreateGroup()

@@ -21,12 +21,27 @@ namespace DWTL.Tests.Models
             a_competition.Name = "Pizza Lovers!";
             a_competition.Bet = 30;
             a_competition.Pot = 30;
-            a_competition.Author = null;
+            a_competition.DownUserId = 1;
+            a_competition.CompType = CompType.Weight;
 
             Assert.AreEqual("Pizza Lovers!", a_competition.Name);
             Assert.AreEqual(30, a_competition.Bet);
             Assert.AreEqual(30, a_competition.Pot);
-            Assert.AreEqual(null, a_competition.Author);
+            Assert.AreEqual(1, a_competition.DownUserId);
+            Assert.AreEqual(CompType.Weight, a_competition.CompType);
+        }
+
+        [TestMethod]
+        public void CompetitionEnsureCompetitionHasMembers()
+        {
+            List<DownUser> list_of_members = new List<DownUser>
+            {
+                new DownUser { Handle = "unicornLover" },
+                new DownUser { Handle = "burgerBob" }
+            };
+            Competition a_competition = new Competition { Name = "Belcher Gang", Members = list_of_members};
+            List<DownUser> actual_members = a_competition.Members;
+            CollectionAssert.AreEqual(list_of_members, actual_members);
         }
 
         [TestMethod]

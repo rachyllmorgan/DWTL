@@ -14,9 +14,9 @@ namespace DWTL.Models
         [Required]
         public string Content { get; set; }
 
-        public object Author { get; set; }
+        public int DownUserId { get; set; }
         public DateTime Date { get; set; }
-        public Competition Competition { get; set; }
+        public int CompetitionId { get; set; }
         public string Picture { get; set; }
     }
 }

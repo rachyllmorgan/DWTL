@@ -442,13 +442,30 @@ namespace DWTL.Tests.Models
         }
 
         [TestMethod]
+        public void DownRepositoryEnsureICanGetAllUsersByCompetitionName()
+        {
+            List<DownUser> list_of_users = new List<DownUser>
+            {
+                new DownUser { Handle = "unicornLover" },
+                new DownUser { Handle = "burger_bob" }
+            };
+            mock_user_set.Object.AddRange(list_of_users);
+            ConnectMocksToDataStore(list_of_users);
+
+            Competition a_competition = new Competition { Name = "Belcher Gang", Members = list_of_users };
+            List<DownUser> actual_users = a_competition.Members;
+
+            CollectionAssert.AreEqual(list_of_users, actual_users); ;
+        }
+
+        [TestMethod]
         public void DownRepositoryEnsureICanCreateACompetition()
         {
             List<Competition> expected_comps = new List<Competition>();
 
             ConnectMocksToDataStore(expected_comps);
 
-            DownUser down_user1 = new DownUser { Handle = "unicornLover" };
+            DownUser down_user1 = new DownUser { Handle = "unicornLover", DownUserId = 1 };
             String comp_name = "The Belchers";
 
             mock_comp_set.Setup(p => p.Add(It.IsAny<Competition>())).Callback((Competition s) => expected_comps.Add(s));

@@ -19,31 +19,31 @@ namespace DWTL.Tests.Models
             Post a_post = new Post();
             DateTime expected_time = DateTime.Now;
             a_post.PostId = 1;
-            a_post.Author = null;
+            a_post.DownUserId = 2;
             a_post.Content = "You got this!";
             a_post.Date = expected_time;
             a_post.Picture = "http://placecorgi.com/260/180";
-            a_post.Competition = null;
+            a_post.CompetitionId = 1;
 
             Assert.AreEqual(1, a_post.PostId);
-            Assert.AreEqual(null, a_post.Author);
+            Assert.AreEqual(2, a_post.DownUserId);
             Assert.AreEqual("You got this!", a_post.Content);
             Assert.AreEqual(expected_time, a_post.Date);
             Assert.AreEqual("http://placecorgi.com/260/180", a_post.Picture);
-            Assert.AreEqual(null, a_post.Competition);
+            Assert.AreEqual(1, a_post.CompetitionId);
         }
         [TestMethod]
         public void PostEnsureICanUseObjectInitializerSyntax()
         {
             DateTime expected_time = DateTime.Now;
-            Post a_post = new Post { PostId = 1, Author = null, Content = "You got this!", Date = expected_time, Picture = "http://placecorgi.com/260/180", Competition = null };
+            Post a_post = new Post { PostId = 1, DownUserId = 2, Content = "You got this!", Date = expected_time, Picture = "http://placecorgi.com/260/180", CompetitionId = 1 };
 
             Assert.AreEqual(1, a_post.PostId);
-            Assert.AreEqual(null, a_post.Author);
+            Assert.AreEqual(2, a_post.DownUserId);
             Assert.AreEqual("You got this!", a_post.Content);
             Assert.AreEqual(expected_time, a_post.Date);
             Assert.AreEqual("http://placecorgi.com/260/180", a_post.Picture);
-            Assert.AreEqual(null, a_post.Competition);
+            Assert.AreEqual(1, a_post.CompetitionId);
         }
     }
 }

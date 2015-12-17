@@ -16,23 +16,21 @@
 </div>
 
 <div class="row">
-    <div class="col-md-3">
-        <img src="http://placecorgi.com/260/180" />
-        @Html.ActionLink("Edit", "Edit") | @*new { id = item.MovieId }*@
-        @Html.ActionLink("Details", "Details") | @*new { id = item.MovieId }*@
-        @Html.ActionLink("Delete", "Delete") @*new { id = item.MovieId }*@
-    </div>
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-md-3">
+                <img src="http://placecorgi.com/260/180" />
+                @item.Name
+                @Html.ActionLink("Edit", "Edit") | @*new { id = item.MovieId }*@
+                @Html.ActionLink("Details", "Details") | @*new { id = item.MovieId }*@
+                @Html.ActionLink("Delete", "Delete") @*new { id = item.MovieId }*@
+            </div>
+        </div>
+    }
 </div>
 
-@*@foreach (var item in Model)
-{
-    <div class="row">
-        <div class="col-md-3">
-            <img src="http://placecorgi.com/260/180" />
-            @item.Name
-        </div>
-    </div>
-}*@
+
 
 
 
