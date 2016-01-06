@@ -13,7 +13,7 @@ namespace DWTL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201512171922567_InitialCreate"; }
+            get { return "201601061744377_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

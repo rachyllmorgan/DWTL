@@ -10,7 +10,9 @@ namespace DWTL.Models
     {
         [Key]
         public int DownUserId { get; set; }
-        
+
+        public virtual ApplicationUser RealUser { get; set; }
+
         [Required]
         [MaxLength(15)]
         [MinLength(5)]

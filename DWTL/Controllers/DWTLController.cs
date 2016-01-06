@@ -4,12 +4,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DWTL.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace DWTL.Controllers
 {
     public class DWTLController : Controller
     {
-        private DownContext repo = new DownContext();
+        private DownContext context = new DownContext();
+
+        public DownRepository Reposit { get; set; }
+
+        public DWTLController() : base()
+        {
+            Reposit = new DownRepository();
+        }
 
         // GET: DWTL
         public ActionResult Index()
@@ -23,7 +32,16 @@ namespace DWTL.Controllers
 
             //List<Competition> all_comps = Repo.GetAllCompetitions();
             // How you send a list of anything to a view
-            return View(repo.Competitions.ToList());
+            return View(context.Competitions.ToList());
+        }
+
+        public ActionResult UserProfile()
+        {
+            string user_id = User.Identity.GetUserId();
+            ApplicationUser real_user = Reposit.Context.Users.FirstOrDefault(u => u.Id == user_id);
+            DownUser me = Reposit.GetAllUsers().Where(u => real_user.Id == u.RealUser.Id).Single();
+
+            return View(me);
         }
 
         public ActionResult CreateGroup()

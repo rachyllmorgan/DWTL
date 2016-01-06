@@ -1,0 +1,15 @@
+﻿@model IEnumerable<DWTL.Models.DownUser>
+@{
+    Layout = "~/Views/Shared/_DownLayout.cshtml";
+}
+@{
+    ViewBag.Title = "My Profile";
+}
+
+<fieldset>
+    <legend>User</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.FirstName)
+    </div>
+</fieldset>
