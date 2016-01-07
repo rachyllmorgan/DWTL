@@ -15,7 +15,7 @@ namespace DWTL.Models
         {
             _context = new DownContext();
         }
-        // construstor that allows us to inject context
+
         public DownRepository(DownContext a_content)
         {
             _context = a_content;
@@ -69,6 +69,12 @@ namespace DWTL.Models
         public List<Competition> GetAllCompetitions()
         {
             var query = from comps in _context.Competitions select comps;
+            return query.ToList();
+        }
+
+        public List<Competition> GetRandomCompetitions()
+        {
+            var query = (from comps in _context.Competitions select comps).Take(3);
             return query.ToList();
         }
 
@@ -130,13 +136,13 @@ namespace DWTL.Models
             return is_added;
         }
 
-        //public List<Post> GetPostsByCompetition(string comp_name)
-        //{
-        //    var query = from post in _context.Posts select post;
-        //    List<Post> found_post = query.Where(post => post.CompetitionId.ToString() == comp_name).ToList();
-        //    found_post.Sort();
-        //    return found_post;
-        //}
+        public int GetPotAmount(string comp_name)
+        {
+            Competition comp = GetCompetitionByName(comp_name);
+            int pot_sum = comp.Bet * comp.Members.Count();
+            comp.Pot = pot_sum;
+            return pot_sum;
+        }
 
         public bool CreatePost(DownUser down_user1, Competition comp_name, string content)
         {

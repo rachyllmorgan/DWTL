@@ -32,3 +32,19 @@ textarea {
     max-width: 100%;
     margin-top: -23em;
 }
+
+.comp_box {
+    margin-bottom: 1em;
+    border: 2px inset black;
+    border-radius: 1em;
+    text-align: center;
+}
+
+.comp_box img {
+    width: 80%;
+    margin: auto 10%;
+}
+
+.detail_box {
+    margin: 2em auto;
+}

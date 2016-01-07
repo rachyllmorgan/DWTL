@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Competitions";
 }
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 <h3>@ViewBag.Message</h3>
 
 <div class="row">
@@ -19,14 +19,14 @@
     
         @foreach (var item in Model)
         {
-            <div class="col-md-4">
+            <div class="col-md-4 comp_box">
+                <h2>@item.Name</h2>
                 <img src="http://placecorgi.com/260/180" />
-                @item.Name
-                @item.CompType
-                @item.Members
-                @Html.ActionLink("Edit", "Edit")
-                @Html.ActionLink("Details", "Details")
-                @Html.ActionLink("Delete", "Delete")
+                <div>
+                    <h3>Pot: $@item.Pot</h3>
+                </div>
+                @Html.ActionLink("Details |", "Details", new { id = item.CompetitionId })
+                @Html.ActionLink(" Join", "Join")
             </div>
         }
 </div>

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using DWTL.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System.Net;
 
 namespace DWTL.Controllers
 {
@@ -23,7 +24,8 @@ namespace DWTL.Controllers
         // GET: DWTL
         public ActionResult Index()
         {
-            return View();
+            List<Competition> random_comp = Reposit.GetRandomCompetitions().ToList();
+            return View(random_comp);
         }
 
         public ActionResult Competitions()
@@ -32,15 +34,15 @@ namespace DWTL.Controllers
 
             //List<Competition> all_comps = Repo.GetAllCompetitions();
             // How you send a list of anything to a view
-            return View(context.Competitions.ToList());
+            return View(Reposit.GetAllCompetitions());
         }
 
         public ActionResult UserProfile()
         {
             string user_id = User.Identity.GetUserId();
             ApplicationUser real_user = Reposit.Context.Users.FirstOrDefault(u => u.Id == user_id);
-            DownUser me = Reposit.GetAllUsers().Where(u => real_user.Id == u.RealUser.Id).Single();
-
+            DownUser me = Reposit.GetAllUsers().Where(u => real_user.UserName == u.Handle).Single();
+            DownUser current_user = Reposit.GetUserByHandle(me.Handle);
             return View(me);
         }
 
@@ -68,9 +70,18 @@ namespace DWTL.Controllers
         //}
 
         // GET: DWTL/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Competition comp = context.Competitions.Find(id);
+            if (comp == null)
+            {
+                return HttpNotFound();
+            }
+            return View(comp);
         }
 
         // GET: DWTL/Create

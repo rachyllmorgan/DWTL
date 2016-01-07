@@ -1,18 +1,22 @@
-﻿<div class="row">
+﻿@model IEnumerable<DWTL.Models.Competition>
+<div class="row">
     <div class="home_banner">
         <img src="~/Images/home_runner.jpg" />
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <img src="http://placecorgi.com/260/180" />
-    </div>
-    <div class="col-md-4">
-        <img src="http://placecorgi.com/260/180" />
-    </div>
-    <div class="col-md-4">
-        <img src="http://placecorgi.com/260/180" />
-    </div>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 comp_box">
+            <h2>@item.Name</h2>
+            <img src="http://placecorgi.com/260/180" />
+            <div>
+                <h3>Pot: $@item.Pot</h3>
+            </div>
+            @Html.ActionLink("Details |", "Details")
+            @Html.ActionLink(" Join", "Join")
+        </div>
+    }
 </div>
 

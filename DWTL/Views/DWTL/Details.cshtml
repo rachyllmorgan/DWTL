@@ -1,0 +1,22 @@
+﻿@model DWTL.Models.Competition
+@{
+    Layout = "~/Views/Shared/_DownLayout.cshtml";
+}
+<div class="col-lg-12 detail_box">
+    <img src="http://placecorgi.com/400/300" />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        <dt>
+            @Html.DisplayNameFor(model => model.Bet)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Bet)
+        </dd>
+        @Html.ActionLink(" Join the Competition", "Join")
+    </dl>
+</div>
+
