@@ -14,8 +14,7 @@
             <div>
                 <h3>Pot: $@item.Pot</h3>
             </div>
-            @Html.ActionLink("Details |", "Details")
-            @Html.ActionLink(" Join", "Join")
+            @Html.ActionLink("Details", "Details", new { id = item.CompetitionId })
         </div>
     }
 </div>

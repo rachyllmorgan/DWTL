@@ -185,6 +185,7 @@
     <Compile Include="Models\DownRepository.cs" />
     <Compile Include="Models\DownUser.cs" />
     <Compile Include="Models\Competition.cs" />
+    <Compile Include="Models\DownUserCompetitions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Post.cs" />
@@ -258,6 +259,7 @@
     <Content Include="Views\DWTL\Competitions.cshtml" />
     <Content Include="Views\DWTL\CreateGroup.cshtml" />
     <Content Include="Views\DWTL\UserProfile.cshtml" />
+    <Content Include="Views\DWTL\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

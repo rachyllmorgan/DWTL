@@ -7,6 +7,7 @@ using DWTL.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Net;
+using System.Data.Entity;
 
 namespace DWTL.Controllers
 {
@@ -37,7 +38,7 @@ namespace DWTL.Controllers
             return View(Reposit.GetAllCompetitions());
         }
 
-        public ActionResult UserProfile()
+        public ActionResult UserProfile(string id)
         {
             string user_id = User.Identity.GetUserId();
             ApplicationUser real_user = Reposit.Context.Users.FirstOrDefault(u => u.Id == user_id);
@@ -107,25 +108,32 @@ namespace DWTL.Controllers
         }
 
         // GET: DWTL/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult EditProfile(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DownUser user = Reposit.Context.DownUsers.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
 
         // POST: DWTL/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile([Bind(Include = "FirstName,LastName")] DownUser user)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                context.Entry(user).State = EntityState.Modified;
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(user);
         }
 
         // GET: DWTL/Delete/5
